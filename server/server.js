@@ -1,13 +1,17 @@
+//imports from 3rd part library
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require ('body-parser');
 const cors = require('cors');
 const dotenv = require('dotenv').config();
+
+//imports from local files
+const errorHandler= require('./helper/errorHandler');
 const userRoute = require('./routes/userRoute');
 
 const app = express();
 
-//middleware
+//middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: false}));
 app.use(bodyParser.json());
@@ -22,11 +26,12 @@ app.use("/api/v1/users", userRoute);
 //routes
 
 
+//error middleware
+app.use(errorHandler);
 
-
-// MONGOOSE SET UP
+// mongoose db set-up
 mongoose.set("strictQuery", false);
-const PORT = process.env.PORT || 6001;
+const PORT = process.env.PORT || 6000;
 //connect to DB and start server
 mongoose
   .connect(process.env.MONGO_URI, {
