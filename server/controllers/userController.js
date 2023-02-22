@@ -2,17 +2,20 @@
 const asyncHandler = require('express-async-handler');
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const crypto = require("crypto");
 
 //import from local files
 const User = require('../models/userModel');
 const Token = require('../models/tokenModel');
+const sendEmail = require("../utils/sendEmail");
 
 
-    // Generate Token
+    // generate Token
     const generateToken = (id) => {
      return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "1d" });
     };
 
+    //register user
     const registerUser = asyncHandler(async (req, res) => {
       const { name, email, password } = req.body;
 
