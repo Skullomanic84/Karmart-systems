@@ -14,9 +14,10 @@ const orderRoute = require("./routes/order");
 const stripeRoute = require("./routes/stripe");
 const cors = require("cors");
 
-const app = express();
+
 
 //middlewares
+const app = express();
 app.use(cors());
 app.use(express.json());
 
